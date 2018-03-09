@@ -258,3 +258,17 @@ function showCharMini(charObject) {
     }
 
     // az 1990 előttiek törlése és a maradék megjelenítése
+
+    function filterByPremierYear() {
+
+        for (let i = 0; i < textData.length; i++) {
+            if (searchValue && (textData[i].premierYear).toLowerCase().indexOf(searchValue) > -1) {
+                showCharMini(textData, i);
+                input.value = textData[i].name;
+                i = textData.length;
+            } else {
+                let newName = document.querySelector('Name');
+                newName.textContent = '';
+            }
+        }
+    }
