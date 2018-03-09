@@ -257,4 +257,4 @@ function showCharMini(charObject) {
         }
     }
 
-    // az 1990 előttiek törlése és a maradék megjelenítése:
+    // az 1990 előttiek törlése és a maradék megjelenítése
