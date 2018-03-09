@@ -106,7 +106,7 @@ function showMovieMini(movieObject) {
     document.getElementById('mini-movie').appendChild(newCast);
 }
 
-// színészek képeinek megjelenítése
+// Összes színész adat megjelenítése
 
 function showCharacters(textData) {
     for (let i = 0; i < textData.length; i++) {
@@ -142,4 +142,52 @@ function showCharMini(charObject) {
     birthCity.class = 'birthCity';
     document.getElementById('characters').appendChild(birthCity);
 
-    // keresési funkció
+    // keresések cím, rendező, szereplő szerint
+
+    function searchByTitle() {
+        var inputTitle = document.getElementById('search');
+        var searchValue = inputTitle.value.toLowerCase();
+
+        for (var i = 0; i < textData.length; i++) {
+            if (searchValue && (textData[i].title).toLowerCase().indexOf(searchValue) > -1) {
+                showMovieMini(textData, i);
+                inputTitle.value = textData[i].title;
+                i = textData.length;
+            } else {
+                var newTitle = document.querySelector('Title');
+                newTitle.textContent = 'Nincs ilyen film.';
+            }
+        }
+    }
+
+    function searchByDirector() {
+        var inputDir = document.getElementById('search');
+        var searchValue = inputDir.value.toLowerCase();
+
+        for (var i = 0; i < textData.length; i++) {
+            if (searchValue && (textData[i].directors).toLowerCase().indexOf(searchValue) > -1) {
+                showMovieMini(textData, i);
+                inputDir.value = textData[i].directors;
+                i = textData.length;
+            } else {
+                var newDir = document.querySelector('Director');
+                newDir.textContent = 'Nincs ilyen nevű rendező.';
+            }
+        }
+    }
+
+    function searchByName() {
+        var inputName = document.getElementById('Name');
+        var searchValue = inputName.value.toLowerCase();
+
+        for (var i = 0; i < textData.length; i++) {
+            if (searchValue && (textData[i].name).toLowerCase().indexOf(searchValue) > -1) {
+                showCharMini(textData, i);
+                inputName.value = textData[i].name;
+                i = textData.length;
+            } else {
+                var newName = document.querySelector('Name');
+                newName.textContent = 'Nem szerepel a filmben.';
+            }
+        }
+    }
