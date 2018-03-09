@@ -2,11 +2,10 @@
 
 function done(textData) {
     let json = JSON.parse(textData);
-    //createView(got);
-    //console.log(json);
-    sortByTitle();
     console.log(textData);
-    //showMoviesList(json);
+    sortByTitle();
+    showMovies();
+
 }
 
 function xhr(method, url, callWhenReady) {
@@ -69,7 +68,7 @@ function showMovieMini(movieObject) {
     let newTimeInMinutes = document.createElement('div');
     newTimeInMinutes.class = 'timeInMinutes';
     document.getElementById('mini-movie').appendChild(newTimeInMinutes);
-    
+
 
     let newPremierYear = document.createElement('div');
     newTimeInMinutes.class = 'premierYear';
