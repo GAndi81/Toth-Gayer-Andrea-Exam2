@@ -6,6 +6,7 @@ function done(textData) {
     sortByTitle();
     showMovies();
     showCharacters();
+    getStatisticData();
 
 }
 
@@ -145,49 +146,99 @@ function showCharMini(charObject) {
     // keresések cím, rendező, szereplő szerint
 
     function searchByTitle() {
-        var inputTitle = document.getElementById('search');
-        var searchValue = inputTitle.value.toLowerCase();
+        let inputTitle = document.getElementById('search');
+        let searchValue = inputTitle.value.toLowerCase();
 
-        for (var i = 0; i < textData.length; i++) {
+        for (let i = 0; i < textData.length; i++) {
             if (searchValue && (textData[i].title).toLowerCase().indexOf(searchValue) > -1) {
                 showMovieMini(textData, i);
                 inputTitle.value = textData[i].title;
                 i = textData.length;
             } else {
-                var newTitle = document.querySelector('Title');
+                let newTitle = document.querySelector('Title');
                 newTitle.textContent = 'Nincs ilyen film.';
             }
         }
     }
 
     function searchByDirector() {
-        var inputDir = document.getElementById('search');
-        var searchValue = inputDir.value.toLowerCase();
+        let inputDir = document.getElementById('search');
+        let searchValue = inputDir.value.toLowerCase();
 
-        for (var i = 0; i < textData.length; i++) {
+        for (let i = 0; i < textData.length; i++) {
             if (searchValue && (textData[i].directors).toLowerCase().indexOf(searchValue) > -1) {
                 showMovieMini(textData, i);
                 inputDir.value = textData[i].directors;
                 i = textData.length;
             } else {
-                var newDir = document.querySelector('Director');
+                let newDir = document.querySelector('Director');
                 newDir.textContent = 'Nincs ilyen nevű rendező.';
             }
         }
     }
 
     function searchByName() {
-        var inputName = document.getElementById('Name');
-        var searchValue = inputName.value.toLowerCase();
+        let inputName = document.getElementById('Name');
+        let searchValue = inputName.value.toLowerCase();
 
-        for (var i = 0; i < textData.length; i++) {
+        for (let i = 0; i < textData.length; i++) {
             if (searchValue && (textData[i].name).toLowerCase().indexOf(searchValue) > -1) {
                 showCharMini(textData, i);
                 inputName.value = textData[i].name;
                 i = textData.length;
             } else {
-                var newName = document.querySelector('Name');
+                let newName = document.querySelector('Name');
                 newName.textContent = 'Nem szerepel a filmben.';
             }
         }
+    }
+
+    //statisztikai adatok megjelenítése
+
+    function getStatisticData(textData) {
+        let stat = statistic(textData);
+        for (let i in stat) {
+            let p = document.createElement('p');
+            p.textContent = `${i} : ${stat[i]}`;
+            document.body.appendChild(p);
+        }
+    }
+
+
+    // Sum függvény  - összes film hossza   
+    function sumFilms(textData) {
+        let Sum = 0;
+        for (let i = 0; i < textData.length; i++) {
+            if (textData[i].timeInMinutes) {
+                Sum += parseFloat(textData[i].timeInMinutes);
+            }
+        }
+        return Sum.toFixed(2);
+    }
+
+
+    //Avg függvény - összes film hosszának az átlaga
+
+    function AvgFilm(textData) {
+        let db = 0;
+        let avg;
+        for (let i = 0; i < textData.length; i++) {
+            if (textData[i].timeInMinutes) {
+                timeInMinutes++;
+            }
+        }
+        avg = parseFloat(sumFilms(textData) / timeInMinutes);
+        return avg.toFixed(2);
+    }
+
+    // az összes színész neve és mellette, hogy hány kategóriában szerepel
+
+    function sumActors(textData) {
+        let Sum = 0;
+        for (let i = 0; i < textData.length; i++) {
+            if (textData[i].name) {
+                Sum += parseFloat(textData[i].name);
+            }
+        }
+        return Sum;
     }
