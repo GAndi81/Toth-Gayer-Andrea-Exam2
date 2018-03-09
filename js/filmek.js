@@ -5,6 +5,7 @@ function done(textData) {
     console.log(textData);
     sortByTitle();
     showMovies();
+    showCharacters();
 
 }
 
@@ -38,8 +39,26 @@ function sortByTitle(textData) {
 
 //Kategória nevének átalakítása úgy, hogy az első nagybetűs a második kisbetűs
 
-/*function categoryNameChange () {}*/
+// A title tulajdonság kitiztázása:
 
+function trimCharacterName(str) {
+    const changeChars = {
+        á: 'a',
+        é: 'e',
+        í: 'i',
+        ó: 'o',
+        ú: 'u',
+        ö: 'o',
+        ő: 'o',
+        ü: 'u',
+        ű: 'u',
+    }
+    str = str.toLocaleLowerCase()
+        .replace(/[áéíóöőüű]/g, c => changeChars[c])
+        .replace(/[^a-z0-9 -]/g, '')
+        .replace(/[ -]+/g, '-');
+    return str;
+}
 
 // Összes film megjelenítése 
 
@@ -66,7 +85,7 @@ function showMovieMini(movieObject) {
     document.getElementById('mini-movie').appendChild(newTitleDiv);
 
     let newTimeInMinutes = document.createElement('div');
-    newTimeInMinutes.class = 'timeInMinutes';
+    newTimeInMinutes.class = ('timeInMinutes' + 'perc');
     document.getElementById('mini-movie').appendChild(newTimeInMinutes);
 
 
@@ -79,7 +98,7 @@ function showMovieMini(movieObject) {
     document.getElementById('mini-movie').appendChild(newCategory);
 
     let newDirectors = document.createElement('div');
-    newDirectors.class = 'directors';
+    newDirectors.class = (', ' + 'directors' + ', ');
     document.getElementById('mini-movie').appendChild(newDirectors);
 
     let newCast = document.createElement('div');
@@ -87,25 +106,40 @@ function showMovieMini(movieObject) {
     document.getElementById('mini-movie').appendChild(newCast);
 }
 
-// kép kitisztázása:
+// színészek képeinek megjelenítése
 
-function imageAppear(str) {
-    const changeChars = {
-        á: 'a',
-        é: 'e',
-        í: 'i',
-        ó: 'o',
-        ú: 'u',
-        ö: 'o',
-        ő: 'o',
-        ü: 'u',
-        ű: 'u',
+function showCharacters(textData) {
+    for (let i = 0; i < textData.length; i++) {
+        const char = textData[i];
+        showCharMini(charObject);
     }
-    str = str.toLocaleLowerCase()
-        .replace(/[áéíóöőüű]/g, c => changeChars[c])
-        .replace(/[^a-z0-9 -]/g, '')
-        .replace(/[ -]+/g, '-');
-    return str;
 }
 
-// kép megjelenítése
+// egy színész és adatainak megjelenítése
+
+function showCharMini(charObject) {
+    let newcharDiv = document.createElement('div');
+    newcharDiv.class = 'characters';
+    document.getElementById('movie').appendChild(newcharDiv);
+
+    let newCharImg = document.createElement('img');
+    newCharImg.class = "actors";
+    document.getElementById('characters').appendChild(newCharImg);
+
+    let newName = document.createElement('div');
+    newName.class = 'name';
+    document.getElementById('characters').appendChild(newName);
+
+    let birthYear = document.createElement('div');
+    birthYear.class = 'birthYear';
+    document.getElementById('characters').appendChild(birthYear);
+
+    let birthCountry = document.createElement('div');
+    birthCountry.class = 'birthCountry';
+    document.getElementById('characters').appendChild(birthCountry);
+
+    let birthCity = document.createElement('div');
+    birthCity.class = 'birthCity';
+    document.getElementById('characters').appendChild(birthCity);
+
+    // keresési funkció
