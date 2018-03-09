@@ -246,6 +246,15 @@ function showCharMini(charObject) {
 
     // a filmkategória neve és mellette, hogy hány film tartozik az adott kategóriába
 
+    function searchByCategory(film, categories) {
+
+        prop = (typeof prop === 'undefined') ? 'categories' : prop;
+
+        for (let i = 0; i < textData.length; i++) {
+            if (textData[i][prop] === key) {
+                return textData[i];
+            }
+        }
+    }
 
     // az 1990 előttiek törlése és a maradék megjelenítése:
-    
