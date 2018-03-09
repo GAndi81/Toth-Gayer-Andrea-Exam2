@@ -242,3 +242,10 @@ function showCharMini(charObject) {
         }
         return Sum;
     }
+
+
+    // a filmkategória neve és mellette, hogy hány film tartozik az adott kategóriába
+
+
+    // az 1990 előttiek törlése és a maradék megjelenítése:
+    
